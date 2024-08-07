@@ -3,6 +3,8 @@ const mongoose = require("mongoose");
 const Meeting = require("../../../model/meetingModel");
 
 exports.createMeeting = async (req, res) => {
+ 
+
   const {
     title,
     description,
