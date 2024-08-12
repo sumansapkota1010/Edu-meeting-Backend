@@ -1,9 +1,8 @@
-
-
 const Meeting = require("../../../model/meetingModel");
 
 exports.createMeeting = async (req, res) => {
- 
+  console.log(req.file);
+  return;
 
   const {
     title,
