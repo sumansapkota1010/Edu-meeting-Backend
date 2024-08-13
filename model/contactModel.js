@@ -1,8 +1,12 @@
 const mongoose = require("mongoose");
 
+<<<<<<< HEAD
+const contactSchema = new mongoose.Schema(
+=======
 const Schema = mongoose.Schema;
 
 const contactSchema = new Schema(
+>>>>>>> origin/main
   {
     name: {
       type: String,
