@@ -1,3 +1,5 @@
+const Meeting = require("../../../model/meetingModel");
+
 const getMeeting = async (req, res) => {
   const meetings = await Meeting.find();
   if (meetings.length == 0) {
