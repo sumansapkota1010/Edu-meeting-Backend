@@ -1,5 +1,8 @@
 const express = require("express");
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/main
 const isAuthenticated = require("../../middleware/isAuthenticated");
 const contactForm = require("../../controller/admin/contact/contactForm");
 

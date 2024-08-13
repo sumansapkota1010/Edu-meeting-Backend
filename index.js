@@ -10,7 +10,7 @@ require("dotenv").config();
 const authRoute = require("./routes/auth/authRoute");
 const meetingRoute = require("./routes/meetingRoute/meetingRoute");
 const courseRoute = require("./routes/courseRoute/courseRoute");
-const contact = require("./routes/contact/contactRoute");
+const contactRoute = require("./routes/contact/contactRoute");
 
 const app = express();
 
@@ -35,7 +35,7 @@ app.get("/", (req, res) => {
 app.use("/api", authRoute);
 app.use("/api", meetingRoute);
 app.use("/api", courseRoute);
-app.use("/api", contact);
+app.use("/api", contactRoute);
 
 const PORT = process.env.PORT;
 app.listen(PORT, () => {
