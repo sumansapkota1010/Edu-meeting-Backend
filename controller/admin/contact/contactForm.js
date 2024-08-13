@@ -10,7 +10,6 @@ const contactForm = async (req, res) => {
       });
     }
 
-    // Save contact form data to the database
     const contactData = await Contact.create({
       name,
       email,
@@ -18,18 +17,17 @@ const contactForm = async (req, res) => {
       message,
     });
 
-    // NodeMailer transport setup
     const transporter = nodemailer.createTransport({
       service: "Gmail",
       auth: {
         user: "educationmeetings7@gmail.com",
-        pass: "bcvo fncy lswt zyxa", // Replace with your App Password
+        pass: process.env.GMAIL_PASS,
       },
     });
 
     const mailOptions = {
       from: email,
-      to: "educationmeetings7@gmail.com", // The admin email
+      to: "educationmeetings7@gmail.com",
       subject: `New Contact Form Submission: ${subject}`,
       text: `You have received a new message from ${name} (${email}):\n\n${message}`,
     };
@@ -43,7 +41,7 @@ const contactForm = async (req, res) => {
     console.error("Error occurred:", err);
     res.status(500).json({
       message: "Message not delivered",
-      error: err.message, // Include the actual error message in the response
+      error: err.message,
     });
   }
 };
