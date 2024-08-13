@@ -36,6 +36,7 @@ const contactForm = async (req, res) => {
 
     res.status(200).json({
       message: "Message sent successfully",
+      contactData,
     });
   } catch (err) {
     console.error("Error occurred:", err);

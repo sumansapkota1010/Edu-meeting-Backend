@@ -1,6 +1,7 @@
 const express = require("express");
 const { default: mongoose } = require("mongoose");
 const { databaseConnection } = require("./database/database");
+const cors = require("cors");
 
 const { registerUser, loginUser } = require("./controller/auth/authController");
 
@@ -13,6 +14,8 @@ const courseRoute = require("./routes/courseRoute/courseRoute");
 const contactRoute = require("./routes/contact/contactRoute");
 
 const app = express();
+
+app.use(cors());
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
