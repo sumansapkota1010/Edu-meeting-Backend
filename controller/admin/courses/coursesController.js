@@ -1,38 +1,36 @@
 const Course = require("../../../model/coursesModel");
 
 exports.createCourse = async (req, res) => {
-  try {
-    const { title, description, price, image, rating } = req.body;
+  const { title, description, price, rating } = req.body;
 
-    const parsedPrice = parseFloat(price);
-    const parsedRating = parseFloat(rating);
+  const parsedPrice = parseFloat(price);
+  const parsedRating = parseFloat(rating);
 
-    if (
-      !title ||
-      !description ||
-      isNaN(parsedPrice) ||
-      !image ||
-      isNaN(parsedRating)
-    ) {
-      return res.status(400).json({
-        message: "Please provide title, description, price, image, and rating",
-      });
-    }
+  const file = req.file;
 
-    await Course.create({
-      title,
-      description,
-      price: parsedPrice,
-      image,
-      rating: parsedRating,
-    });
+  let filePath;
+  if (!file) {
+    filePath =
+      "https://www.freeiconspng.com/thumbs/no-image-icon/no-image-icon-6.png";
+  } else {
+    filePath = req.file.filename;
+  }
 
-    res.status(201).json({
-      message: "Course created successfully",
-    });
-  } catch (error) {
-    res.status(500).json({
-      message: error.message,
+  if (!title || !description || isNaN(parsedPrice) || isNaN(parsedRating)) {
+    return res.status(400).json({
+      message: "Please provide title, description, price,and rating",
     });
   }
+
+  await Course.create({
+    title,
+    description,
+    price: parsedPrice,
+    courseImage: "http://localhost:5000/" + filePath,
+    rating: parsedRating,
+  });
+
+  res.status(201).json({
+    message: "Course created successfully",
+  });
 };

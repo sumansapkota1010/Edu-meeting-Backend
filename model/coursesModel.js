@@ -22,6 +22,7 @@ const courseSchema = new mongoose.Schema(
       min: 0,
       max: 5,
     },
+    courseImage: String,
   },
   {
     timestamps: true,
