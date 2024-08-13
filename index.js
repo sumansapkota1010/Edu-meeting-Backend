@@ -4,6 +4,7 @@ const { databaseConnection } = require("./database/database");
 
 const { registerUser, loginUser } = require("./controller/auth/authController");
 
+//Tell node to use dotenv
 require("dotenv").config();
 
 const authRoute = require("./routes/auth/authRoute");
@@ -15,6 +16,9 @@ const app = express();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+//telling nodejs to give access to uploads folder
+app.use(express.static("uploads"));
 
 //mongoose connection
 

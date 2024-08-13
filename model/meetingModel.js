@@ -15,10 +15,7 @@ const meetingSchema = new Schema(
       type: Number,
       required: true,
     },
-    image: {
-      type: String,
-      required: true,
-    },
+
     date: {
       type: Date,
       required: true,
@@ -39,6 +36,9 @@ const meetingSchema = new Schema(
       type: String,
       enum: ["All Meetings", "Soon", "Important", "Attractive"],
       required: true,
+    },
+    meetingImage: {
+      type: String,
     },
   },
   {
