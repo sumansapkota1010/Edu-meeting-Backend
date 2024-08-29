@@ -6,12 +6,16 @@ const jwt = require("jsonwebtoken");
 const User = require("../../model/userModel");
 
 exports.registerUser = async (req, res) => {
-  const { username, email, password, phonenumber, role } = req.body;
+  const { username, email, password, phonenumber } = req.body;
 
   if (!username || !email || !password || !phonenumber) {
     return res.status(400).json({
       message: "Please provide username,email,password,phonenumber",
     });
+  }
+  const phoneRegex = /^\d{10}$/;
+  if (!phoneRegex.test(phonenumber)) {
+    return res.status(400).json({ message: "Invalid phone number format" });
   }
 
   // check if that email user already exist or not
@@ -23,15 +27,15 @@ exports.registerUser = async (req, res) => {
     });
   }
 
-  await User.create({
+  const userData = await User.create({
     userName: username,
     userEmail: email,
     userPassword: bcrypt.hashSync(password, 10),
     userPhoneNumber: phonenumber,
-    role: role,
   });
   res.status(201).json({
     message: "User registered successfully",
+    data: userData,
   });
 };
 
@@ -52,8 +56,6 @@ exports.loginUser = async (req, res) => {
     });
   }
 
-
-  
   //password check
   const isMatched = bcrypt.compareSync(password, userFound[0].userPassword);
   if (isMatched) {
