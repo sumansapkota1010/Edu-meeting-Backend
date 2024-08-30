@@ -12,6 +12,7 @@ const authRoute = require("./routes/auth/authRoute");
 const meetingRoute = require("./routes/meetingRoute/meetingRoute");
 const courseRoute = require("./routes/courseRoute/courseRoute");
 const contactRoute = require("./routes/contact/contactRoute");
+const userProfileRoute = require("./routes/profileRoute");
 
 const app = express();
 
@@ -39,6 +40,7 @@ app.use("/api", authRoute);
 app.use("/api", meetingRoute);
 app.use("/api", courseRoute);
 app.use("/api", contactRoute);
+app.use("/api", userProfileRoute);
 
 const PORT = process.env.PORT;
 app.listen(PORT, () => {
