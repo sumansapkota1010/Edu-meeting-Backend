@@ -13,7 +13,7 @@ const meetingRoute = require("./routes/meetingRoute/meetingRoute");
 const courseRoute = require("./routes/courseRoute/courseRoute");
 const contactRoute = require("./routes/contact/contactRoute");
 const userProfileRoute = require("./routes/profileRoute");
-
+const categoryMeeting = require("./routes/meetingRoute/meetingRoute");
 const app = express();
 
 app.use(cors());
@@ -41,6 +41,7 @@ app.use("/api", meetingRoute);
 app.use("/api", courseRoute);
 app.use("/api", contactRoute);
 app.use("/api", userProfileRoute);
+app.use("/api", categoryMeeting);
 
 const PORT = process.env.PORT;
 app.listen(PORT, () => {

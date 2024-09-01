@@ -13,6 +13,9 @@ const {
 } = require("../../controller/admin/meeting/meetingController");
 const getMeeting = require("../../controller/admin/meeting/getMeeting");
 const updateMeeting = require("../../controller/admin/meeting/updateMeeting");
+const {
+  categoryMeeting,
+} = require("../../controller/admin/meeting/categoryMeeting");
 const upload = multer({ storage: storage });
 
 router
@@ -35,5 +38,6 @@ router
     upload.single("meetingImage"),
     catchAsync(updateMeeting)
   );
+router.route("/meetings/category/:category").get(catchAsync(categoryMeeting));
 
 module.exports = router;
