@@ -15,6 +15,7 @@ const contactRoute = require("./routes/contact/contactRoute");
 const userProfileRoute = require("./routes/profileRoute");
 const categoryMeeting = require("./routes/meetingRoute/meetingRoute");
 const getContactRoute = require("./routes/contact/contactRoute");
+const getAllUserRoute = require("./routes/adminUser/adminUserRoute");
 const app = express();
 
 app.use(cors());
@@ -44,6 +45,7 @@ app.use("/api", contactRoute);
 app.use("/api", userProfileRoute);
 app.use("/api", categoryMeeting);
 app.use("/api", getContactRoute);
+app.use("/api", getAllUserRoute);
 
 const PORT = process.env.PORT;
 app.listen(PORT, () => {
