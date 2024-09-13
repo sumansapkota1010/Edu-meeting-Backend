@@ -8,7 +8,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon index.js",
-    "vercel-build": "vite build"
+    "vercel-build": "echo 'No build step for backend'"
   },
   "author": "",
   "license": "ISC",
