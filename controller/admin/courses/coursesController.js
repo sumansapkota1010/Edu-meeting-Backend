@@ -7,6 +7,7 @@ exports.createCourse = async (req, res) => {
   const parsedRating = parseFloat(rating);
 
   const file = req.file;
+  console.log(file);
 
   let filePath;
   if (!file) {
