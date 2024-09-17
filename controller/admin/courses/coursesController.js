@@ -27,7 +27,7 @@ exports.createCourse = async (req, res) => {
     title,
     description,
     price: parsedPrice,
-    courseImage: "http://localhost:5000/" + filePath,
+    courseImage: "https://edu-meeting-backend.vercel.app/" + filePath,
     rating: parsedRating,
   });
 
