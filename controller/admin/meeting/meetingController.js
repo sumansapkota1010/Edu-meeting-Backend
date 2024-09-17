@@ -3,8 +3,8 @@ const Meeting = require("../../../model/meetingModel");
 exports.createMeeting = async (req, res) => {
   try {
     const file = req.file;
-
     let filePath;
+
     if (!file) {
       filePath =
         "https://www.freeiconspng.com/thumbs/no-image-icon/no-image-icon-6.png";
