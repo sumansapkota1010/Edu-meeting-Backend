@@ -2,6 +2,7 @@ const express = require("express");
 const { default: mongoose } = require("mongoose");
 const { databaseConnection } = require("./database/database");
 const cors = require("cors");
+const path = require("path");
 
 const { registerUser, loginUser } = require("./controller/auth/authController");
 
