@@ -15,6 +15,7 @@ exports.categoryMeeting = async (req, res) => {
     const query = category === "All Meetings" ? {} : { category };
     const totalMeetings = await Meeting.countDocuments(query);
     const meetings = await Meeting.find(query).skip(skip).limit(limit);
+    console.log(meetings);
 
     res.status(200).json({
       success: true,
