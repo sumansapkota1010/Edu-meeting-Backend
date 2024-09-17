@@ -27,7 +27,7 @@ const updateCourse = async (req, res) => {
     });
   }
 
-  const oldCourseImage = oldData.courseImage; //http://localhost:5000/course-01.jpg
+  const oldCourseImage = oldData.courseImage; //https://edu-meeting-backend.vercel.app/course-01.jpg
   const lengthToCut = process.env.BACKEND_URL;
   const finalFilePath = oldCourseImage.slice(lengthToCut);
 

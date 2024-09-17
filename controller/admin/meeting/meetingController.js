@@ -38,6 +38,10 @@ exports.createMeeting = async (req, res) => {
     });
   }
 
+  const backendUrl = "https://edu-meeting-backend.vercel.app";
+
+  const imageUrl = `${backendUrl}/uploads/${filePath}`;
+
   await Meeting.create({
     title,
     description,
@@ -47,7 +51,7 @@ exports.createMeeting = async (req, res) => {
     location,
     bookNow,
     category,
-    meetingImage: process.env.BACKEND_URL + filePath,
+    meetingImage: imageUrl,
   });
 
   res.status(200).json({

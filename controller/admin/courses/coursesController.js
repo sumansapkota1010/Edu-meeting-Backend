@@ -7,7 +7,6 @@ exports.createCourse = async (req, res) => {
   const parsedRating = parseFloat(rating);
 
   const file = req.file;
-  console.log(file);
 
   let filePath;
   if (!file) {
@@ -24,7 +23,8 @@ exports.createCourse = async (req, res) => {
   }
 
   const backendUrl = "https://edu-meeting-backend.vercel.app";
-  const imageUrl = `${backendUrl}/${filePath.replace(/^\//, "")}`;
+
+  const imageUrl = `${backendUrl}/uploads/${filePath}`;
 
   try {
     await Course.create({
