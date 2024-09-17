@@ -14,24 +14,35 @@ exports.createCourse = async (req, res) => {
     filePath =
       "https://www.freeiconspng.com/thumbs/no-image-icon/no-image-icon-6.png";
   } else {
-    filePath = req.file.filename;
+    filePath = file.filename;
   }
 
   if (!title || !description || isNaN(parsedPrice) || isNaN(parsedRating)) {
     return res.status(400).json({
-      message: "Please provide title, description, price,and rating",
+      message: "Please provide title, description, price, and rating",
     });
   }
 
-  await Course.create({
-    title,
-    description,
-    price: parsedPrice,
-    courseImage: "https://edu-meeting-backend.vercel.app/" + filePath,
-    rating: parsedRating,
-  });
+  const backendUrl = "https://edu-meeting-backend.vercel.app";
+  const imageUrl = `${backendUrl}/${filePath.replace(/^\//, "")}`;
 
-  res.status(201).json({
-    message: "Course created successfully",
-  });
+  try {
+    await Course.create({
+      title,
+      description,
+      price: parsedPrice,
+      courseImage: imageUrl,
+      rating: parsedRating,
+    });
+
+    res.status(201).json({
+      message: "Course created successfully",
+    });
+  } catch (error) {
+    console.error("Error creating course:", error);
+    res.status(500).json({
+      message: "An error occurred while creating the course",
+      error: error.message,
+    });
+  }
 };
