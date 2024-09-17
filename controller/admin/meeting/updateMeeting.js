@@ -37,7 +37,7 @@ const updateMeeting = async (req, res) => {
     });
   }
 
-  const oldMeetingImage = oldData.meetingImage; //"http://localhost:5000/meeting-01.jpg"
+  const oldMeetingImage = oldData.meetingImage; //"https://edu-meeting-backend.vercel.app/uploads/meeting-01.jpg"
   const lengthToCut = process.env.BACKEND_URL;
   const finalFilePath = oldMeetingImage.slice(lengthToCut);
   if (req.file && req.file.filename) {
