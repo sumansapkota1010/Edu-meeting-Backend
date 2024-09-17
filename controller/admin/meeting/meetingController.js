@@ -9,7 +9,7 @@ exports.createMeeting = async (req, res) => {
       filePath =
         "https://www.freeiconspng.com/thumbs/no-image-icon/no-image-icon-6.png";
     } else {
-      filePath = req.file.filename;
+      filePath = file.filename;
     }
 
     const {
@@ -40,7 +40,9 @@ exports.createMeeting = async (req, res) => {
     }
 
     const backendUrl = "https://edu-meeting-backend.vercel.app";
-    const imageUrl = `${backendUrl}/uploads/${filePath}`;
+    const imageUrl = file ? `${backendUrl}/uploads/${filePath}` : filePath;
+
+    console.log("Image URL:", imageUrl);
 
     await Meeting.create({
       title,
