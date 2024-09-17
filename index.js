@@ -25,7 +25,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 //telling nodejs to give access to uploads folder
-app.use(express.static("uploads"));
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 //mongoose connection
 
