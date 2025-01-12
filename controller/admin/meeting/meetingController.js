@@ -47,7 +47,7 @@ exports.createMeeting = async (req, res) => {
     location,
     bookNow,
     category,
-    meetingImage: "http://localhost:5000/" + filePath,
+    meetingImage: "https://edu-meeting-backend.onrender.com/" + filePath,
   });
 
   res.status(200).json({
