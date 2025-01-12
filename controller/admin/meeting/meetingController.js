@@ -47,7 +47,7 @@ exports.createMeeting = async (req, res) => {
     location,
     bookNow,
     category,
-    meetingImage: process.env.BACKEND_URL + filePath,
+    meetingImage: "http://localhost:5000/" + filePath,
   });
 
   res.status(200).json({
