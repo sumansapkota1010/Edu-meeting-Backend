@@ -1,4 +1,6 @@
 const Meeting = require("../../../model/meetingModel");
+const cloudinary = require("cloudinary").v2;
+const multer = require("multer");
 
 exports.createMeeting = async (req, res) => {
   const file = req.file;
@@ -8,7 +10,10 @@ exports.createMeeting = async (req, res) => {
     filePath =
       "https://www.freeiconspng.com/thumbs/no-image-icon/no-image-icon-6.png";
   } else {
-    filePath = req.file.filename;
+    const result = await cloudinary.uploader.upload(file.path, {
+      folder: "meeting_images",
+    });
+    filePath = result.secure_url;
   }
 
   const {
@@ -47,7 +52,7 @@ exports.createMeeting = async (req, res) => {
     location,
     bookNow,
     category,
-    meetingImage: "https://edu-meeting-backend.onrender.com/" + filePath,
+    meetingImage: filePath,
   });
 
   res.status(200).json({

@@ -3,6 +3,7 @@ const { default: mongoose } = require("mongoose");
 const { databaseConnection } = require("./database/database");
 const cors = require("cors");
 const path = require("path");
+const cloudinary = require("cloudinary");
 
 const { registerUser, loginUser } = require("./controller/auth/authController");
 
@@ -31,6 +32,12 @@ app.use(express.urlencoded({ extended: true }));
 
 //telling nodejs to give access to uploads folder
 app.use(express.static("./uploads"));
+
+cloudinary.config({
+  cloud_name: process.env.cloud_name,
+  api_key: process.env.api_key,
+  api_secret: process.env.api_secret,
+});
 
 //mongoose connection
 

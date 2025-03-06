@@ -1,6 +1,6 @@
 const Meeting = require("../../../model/meetingModel");
 const fs = require("fs");
-
+const cloudinary = require("cloudinary").v2;
 const updateMeeting = async (req, res) => {
   const { id } = req.params;
   const {
@@ -37,18 +37,21 @@ const updateMeeting = async (req, res) => {
     });
   }
 
-  const oldMeetingImage = oldData.meetingImage; //"http://localhost:5000/meeting-01.jpg"
-  const lengthToCut = process.env.BACKEND_URL;
-  const finalFilePath = oldMeetingImage.slice(lengthToCut);
-  if (req.file && req.file.filename) {
-    // remove file from uploads folder
-    fs.unlink("./uploads/" + finalFilePath, (err) => {
-      if (err) {
-        console.log("error deleting file");
-      } else {
-        console.log("File deleted Successfully");
-      }
+  let newImageUrl;
+  if (req.file) {
+    const result = await cloudinary.uploader.upload(req.file.path, {
+      folder: "meeting_images",
     });
+    newImageUrl = result.secure_url;
+
+    // old image exists garxa bhane delete garne
+
+    if (oldData.meetingImage) {
+      const publicId = oldData.meetingImage.split("/").pop().split(".")[0]; //https://res.cloudinary.com/your-cloud-name/image/upload/v1234567/meeting_images/abc123.jpg"; abc123 matra aauxa
+      // destroy garna paryo
+      await cloudinary.uploader.destroy(`meeting_images/${publicId}`);
+    }
+    fs.unlinkSync(req.file.path);
   }
   const datas = await Meeting.findByIdAndUpdate(
     id,
@@ -61,10 +64,7 @@ const updateMeeting = async (req, res) => {
       location,
       bookNow,
       category,
-      meetingImage:
-        req.file && req.file.filename
-          ? process.env.BACKEND_URL + req.file.filename
-          : oldMeetingImage,
+      meetingImage: newImageUrl || oldData.meetingImage,
     },
     {
       new: true,
