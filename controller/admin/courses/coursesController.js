@@ -1,4 +1,6 @@
 const Course = require("../../../model/coursesModel");
+const cloudinary = require("cloudinary").v2;
+const multer = require("multer");
 
 exports.createCourse = async (req, res) => {
   const { title, description, price, rating } = req.body;
@@ -14,7 +16,10 @@ exports.createCourse = async (req, res) => {
     filePath =
       "https://www.freeiconspng.com/thumbs/no-image-icon/no-image-icon-6.png";
   } else {
-    filePath = req.file.filename;
+    const result = await cloudinary.uploader.upload(file.path, {
+      folder: "courses_images",
+    });
+    filePath = result.secure_url;
   }
 
   if (!title || !description || isNaN(parsedPrice) || isNaN(parsedRating)) {
@@ -27,7 +32,7 @@ exports.createCourse = async (req, res) => {
     title,
     description,
     price: parsedPrice,
-    courseImage: "https://edu-meeting-backend.onrender.com/" + filePath,
+    courseImage: filePath,
     rating: parsedRating,
   });
 

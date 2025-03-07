@@ -1,5 +1,5 @@
 const Course = require("../../../model/coursesModel");
-
+const cloudinary = require("cloudinary").v2;
 const fs = require("fs");
 
 const updateCourse = async (req, res) => {
@@ -27,28 +27,27 @@ const updateCourse = async (req, res) => {
     });
   }
 
-  const oldCourseImage = oldData.courseImage; //http://localhost:5000/course-01.jpg
-  const lengthToCut = process.env.BACKEND_URL;
-  const finalFilePath = oldCourseImage.slice(lengthToCut);
-
-  if (req.file && req.file.filename) {
-    fs.unlink("./uploads/" + finalFilePath, (err) => {
-      if (err) {
-        console.log("error deleting file");
-      } else {
-        console.log("File deleted Successfully");
-      }
+  let newImageUrl;
+  if (req.file) {
+    const result = await cloudinary.uploader.upload(req.file.path, {
+      folder: "courses_images",
     });
+    newImageUrl = result.secure_url;
+
+    //old image exists garxa bhane delete garne
+    if (oldData.courseImage) {
+      const publicId = oldData.courseImage.split("/").pop().split(".")[0];
+      await cloudinary.uploader.destroy(`courses_images/${publicId}`);
+    }
+    fs.unlinkSync(req.file.path);
   }
 
   const courseDatas = await Course.findByIdAndUpdate(id, {
     title,
     description,
     price: parsedPrice,
-    courseImage:
-      req.file && req.file.filename
-        ? process.env.BACKEND_URL + req.file.filename
-        : oldCourseImage,
+    courseImage: newImageUrl || oldData.courseImage,
+
     rating: parsedRating,
   });
   res.status(200).json({
